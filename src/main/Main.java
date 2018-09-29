@@ -26,7 +26,7 @@ public class Main {
 
         // For example purposes only; remove from your final project.
         try {
-            Thread.sleep(500);
+            Thread.sleep(400);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
