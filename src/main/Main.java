@@ -2,9 +2,8 @@ package main;
 
 import controller.IJPaintController;
 import controller.JPaintController;
-import model.User_Mouse_Handler;
-import model.dialogs.DialogProvider;
-import model.interfaces.IDialogProvider;
+import model.ShapeFactory;
+import view.User_Mouse_Handler;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -13,9 +12,6 @@ import view.interfaces.IGuiWindow;
 import view.interfaces.IUiModule;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
 
 public class Main {
     public static void main(String[] args){
@@ -24,7 +20,7 @@ public class Main {
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
         IJPaintController controller = new JPaintController(uiModule, appState);
-        User_Mouse_Handler Mouse = new User_Mouse_Handler();
+        User_Mouse_Handler Mouse = new User_Mouse_Handler(appState);
         controller.setup();
 
         // For example purposes only; remove from your final project.
@@ -34,11 +30,18 @@ public class Main {
             e.printStackTrace();
         }
         paintCanvas.addMouseListener(Mouse);
+
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
         graphics2d.setColor(Color.GREEN);
-        graphics2d.fillRect(12, 13, 200, 400);
         graphics2d.setStroke(new BasicStroke(5));
         graphics2d.setColor(Color.BLUE);
-        graphics2d.drawRect(12, 13, 200, 400);
+        System.out.println(Mouse.released);
+        while (!Mouse.released){
+            graphics2d.fillRect(12, 13, 200, 400);
+            graphics2d.drawRect(Mouse.ix, Mouse.iy, Mouse.w, Mouse.h);
+            System.out.println("zibi 3aliek we hawaliek" + "we bein regliek");
+            Mouse.released = false;
+
+        }
     }
 }
