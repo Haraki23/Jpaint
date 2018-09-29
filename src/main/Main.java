@@ -2,7 +2,7 @@ package main;
 
 import controller.IJPaintController;
 import controller.JPaintController;
-import model.User_Mouse;
+import model.User_Mouse_Handler;
 import model.dialogs.DialogProvider;
 import model.interfaces.IDialogProvider;
 import model.persistence.ApplicationState;
@@ -24,7 +24,7 @@ public class Main {
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
         IJPaintController controller = new JPaintController(uiModule, appState);
-        User_Mouse Mouse = new User_Mouse();
+        User_Mouse_Handler Mouse = new User_Mouse_Handler();
         controller.setup();
 
         // For example purposes only; remove from your final project.
