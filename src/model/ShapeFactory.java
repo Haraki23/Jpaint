@@ -6,9 +6,12 @@ import view.interfaces.IDialogChoice;
 import view.interfaces.IEventCallback;
 import view.interfaces.IUiModule;
 
+import java.awt.*;
+
 public class ShapeFactory{
     private StartAndEndPointMode SEP;
-    private ShapeColor PColor;
+    public ShapeColor PColor;
+    //public Color jcolor;
     private ShapeColor SColor;
     private ShapeShadingType Shade;
     private ShapeType Type;

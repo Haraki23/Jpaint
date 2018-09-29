@@ -20,28 +20,11 @@ public class Main {
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
         IJPaintController controller = new JPaintController(uiModule, appState);
-        User_Mouse_Handler Mouse = new User_Mouse_Handler(appState);
         controller.setup();
-
-        // For example purposes only; remove from your final project.
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        paintCanvas.addMouseListener(Mouse);
-
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
-        graphics2d.setColor(Color.GREEN);
+        User_Mouse_Handler Mouse = new User_Mouse_Handler(appState, graphics2d);
+        paintCanvas.addMouseListener(Mouse);
         graphics2d.setStroke(new BasicStroke(5));
-        graphics2d.setColor(Color.BLUE);
-        System.out.println(Mouse.released);
-        while (!Mouse.released){
-            graphics2d.fillRect(12, 13, 200, 400);
-            graphics2d.drawRect(Mouse.ix, Mouse.iy, Mouse.w, Mouse.h);
-            System.out.println("zibi 3aliek we hawaliek" + "we bein regliek");
-            Mouse.released = false;
 
         }
-    }
 }

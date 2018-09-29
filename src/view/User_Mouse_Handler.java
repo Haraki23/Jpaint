@@ -1,8 +1,11 @@
 package view;
 
+import model.ShapeColor;
 import model.ShapeFactory;
 import model.interfaces.MouseObserver;
 import model.persistence.ApplicationState;
+
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -10,6 +13,7 @@ import java.util.List;
 
 public class User_Mouse_Handler extends MouseAdapter {
     ApplicationState appState;
+    Graphics2D G;
     private List<MouseObserver> observers = new ArrayList();
     //Initial X & Y
     public int ix = 0;
@@ -21,8 +25,7 @@ public class User_Mouse_Handler extends MouseAdapter {
     public int w = 0;
     public int h = 0;
     //Released
-    public boolean released = false;
-    public User_Mouse_Handler(ApplicationState appState){
+    public User_Mouse_Handler(ApplicationState appState, Graphics2D G){
         this.appState = appState;
         this.ix = ix;
         this.iy = iy;
@@ -30,34 +33,42 @@ public class User_Mouse_Handler extends MouseAdapter {
         this.fy = fy;
         this.w = w;
         this.h = h;
-        this.released = released;
+        this.G = G;
 
     }
 
-
-
     @Override
     public void mousePressed(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        ix = x;
-        ix = y;
-        System.out.println(x+"     "+y);
+        ix = e.getX();
+        iy = e.getY();
+        System.out.println(ix+"     "+iy);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         ShapeFactory shape = new ShapeFactory(appState);
-        int x = e.getX();
-        int y = e.getY();
-        fx = x;
-        fy = y;
-        System.out.println("Release from " + x+"     "+y);
+        fx = e.getX();
+        fy = e.getY();
+        w = Math.abs(fx-ix);
+        h = Math.abs(fy-iy);
+        //System.out.println("Release from " + x + "     "+y);
         //System.out.println("Width and Height " + fx + "   " + fy);
-            released = true;
-            shape.createRect(Get_WH_On_Release());
+        shape.createRect(Get_WH_On_Release());
+        DrawShape(G);
     }
-
+    //Draw shape in graphics 2D
+    public void DrawShape(Graphics2D G2){
+        G2.setColor(Color.BLUE);
+        System.out.println(ix+"   "+iy);
+        if (iy < fy){
+            G2.fillRect(ix, iy, w, h);
+            G2.drawRect(ix, iy, w, h);
+        }
+        else{
+            G2.fillRect(fx, fy, w, h);
+            G2.drawRect(fx, fy, w, h);
+        }
+    }
     //Obtains the XY values ont he initial press
     public int[] Get_XY_On_Press (){
         int[] xy = new int[2];
@@ -68,10 +79,8 @@ public class User_Mouse_Handler extends MouseAdapter {
     //Return the Width and Height of the Object
     public int[] Get_WH_On_Release (){
         int[] wh = new int[2];
-        w = Math.abs(fx-ix);
-        h = Math.abs(fy-iy);
-        wh[0] = Math.abs(fx-ix);
-        wh[1] = Math.abs(fy-iy);
+        wh[0] = w;
+        wh[1] = h;
         return wh;
     }
 
