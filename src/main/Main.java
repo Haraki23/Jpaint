@@ -2,6 +2,7 @@ package main;
 
 import controller.IJPaintController;
 import controller.JPaintController;
+import model.User_Mouse;
 import model.dialogs.DialogProvider;
 import model.interfaces.IDialogProvider;
 import model.persistence.ApplicationState;
@@ -14,6 +15,7 @@ import view.interfaces.IUiModule;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
 
 public class Main {
     public static void main(String[] args){
@@ -22,6 +24,7 @@ public class Main {
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
         IJPaintController controller = new JPaintController(uiModule, appState);
+        User_Mouse Mouse = new User_Mouse();
         controller.setup();
 
         // For example purposes only; remove from your final project.
@@ -30,6 +33,7 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        paintCanvas.addMouseListener(Mouse);
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
         graphics2d.setColor(Color.GREEN);
         graphics2d.fillRect(12, 13, 200, 400);
