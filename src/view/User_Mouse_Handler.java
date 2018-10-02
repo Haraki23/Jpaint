@@ -36,7 +36,7 @@ public class User_Mouse_Handler extends MouseAdapter {
         this.G = G;
 
     }
-
+//Create rect through a command object being instatiated in here
     @Override
     public void mousePressed(MouseEvent e) {
         ix = e.getX();
@@ -46,6 +46,7 @@ public class User_Mouse_Handler extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        //Put the shape factory as a construvtor in the create shape command which would take in the application state or a shape factory (preferable)
         ShapeFactory shape = new ShapeFactory(appState);
         fx = e.getX();
         fy = e.getY();
@@ -57,8 +58,9 @@ public class User_Mouse_Handler extends MouseAdapter {
         DrawShape(G);
     }
     //Draw shape in graphics 2D
+    //Take in the paint canvas instead of the graphics 2D object
     public void DrawShape(Graphics2D G2){
-        G2.setColor(Color.BLUE);
+        G2.setColor(Color.blue);
         System.out.println(ix+"   "+iy);
         if (iy < fy){
             G2.fillRect(ix, iy, w, h);
