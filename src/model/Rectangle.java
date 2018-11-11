@@ -36,17 +36,13 @@ public class Rectangle implements IShape, MouseObserver {
         this.eY = AS.getendy();
         this.BB = new BoundingBox(sX, sY, eX, eY);
         this.point = new JPoint();
-        //Calculate our width
-        this.w = Math.abs(eX - sX);
-        //Calculate our height
-        this.h = Math.abs(eY - sY);
     }
 
-    public Rectangle(int x, int y, int width, int height, BoundingBox Bound_Box, ShapeColor activePrimaryColor, ShapeColor activeSecondaryColor, ShapeShadingType activeShapeShadingType) {
+    public Rectangle(int x, int y, int ex, int ey, BoundingBox Bound_Box, ShapeColor activePrimaryColor, ShapeColor activeSecondaryColor, ShapeShadingType activeShapeShadingType) {
         this.sX = x;
         this.sY = y;
-        this.w = width;
-        this.h = height;
+        this.eX = ex;
+        this.eY = ey;
         this.BB = Bound_Box;
         this.primary = activePrimaryColor;
         this.secondary = activeSecondaryColor;
@@ -73,7 +69,7 @@ public class Rectangle implements IShape, MouseObserver {
         if (pointmover > 400) {
             pointmover = 200;
         }
-        return new Rectangle(sX + 200, sY + 200, Math.abs(pointmover + eX - sX), Math.abs(pointmover + eY - sY), BB, primary, secondary, shadingtype);
+        return new Rectangle(sX + pointmover, sY + pointmover, eX+pointmover, eY+pointmover, BB, primary, secondary, shadingtype);
     }
 
     public UUID getShape_ID() {
@@ -146,6 +142,10 @@ public class Rectangle implements IShape, MouseObserver {
         int iy = sY;
         int fx = eX;
         int fy = eY;
+        //Calculate our width
+        this.w = Math.abs(eX - sX);
+        //Calculate our height
+        this.h = Math.abs(eY - sY);
         //We set our graphics 2d object
         Graphics2D g2d = PC.getGraphics2D();
         //We obtain our color from the color legend
