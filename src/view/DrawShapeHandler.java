@@ -22,7 +22,7 @@ public class DrawShapeHandler implements IDraw {
     public void DrawShapes(DrawShapeHandler draw, ArrayList<IShape> Jshapes) {
         clearcanvas();
             for (IShape shape : Jshapes) {
-                System.out.println(shape.getsx());
+                shape.printall();
                 shape.draw(PC);
             }
     }

@@ -59,8 +59,9 @@ public class Rectangle implements IShape, MouseObserver {
         return point;
     }
 
-    public int getsx() {
-        return sX;
+    public void printall() {
+        System.out.println(getShape_ID().toString().substring(0,4)+" ShapeID has (sX,Sy,eX,eY): " + sX +","+ sY + "," + eX + "," + eY);
+        System.out.println("----------------------------------------------------------------------------------");
     }
 
     @Override

@@ -21,7 +21,7 @@ public class User_Mouse_Handler extends MouseAdapter {
     public void mousePressed(MouseEvent e) {
         //Well set our starting point here on mouse pressed
         AS.setstartxy(e.getX(),e.getY());
-        System.out.println("Mouse Pressed on: " + AS.getstartx() + "     " + AS.getstarty());
+        //System.out.println("Mouse Pressed on: " + AS.getstartx() + "     " + AS.getstarty());
     }
 
     @Override
@@ -68,8 +68,6 @@ public class User_Mouse_Handler extends MouseAdapter {
                 }
                 break;
         }
-
-
-            System.out.println("Released from: " + AS.getendx() + "     " + AS.getendy());
+            //System.out.println("Released from: " + AS.getendx() + "     " + AS.getendy());
     }
 }

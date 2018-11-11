@@ -13,6 +13,6 @@ public interface IShape {
     void draw(PaintCanvas PC);
     void movepos(int dx, int dy);
     void moveneg(int dx, int dy);
-    int getsx();
+    void printall();
     IShape copyShape();
 }
