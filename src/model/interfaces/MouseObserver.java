@@ -1,8 +1,7 @@
 package model.interfaces;
 
+import controller.JPoint;
+
 public interface MouseObserver {
-
-    public void update();
-
-
+    JPoint getPoint();
 }

@@ -4,6 +4,8 @@ import model.interfaces.IApplicationState;
 import view.EventName;
 import view.interfaces.IUiModule;
 
+import java.awt.*;
+
 public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
@@ -24,5 +26,10 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.CHOOSE_SECONDARY_COLOR, () -> applicationState.setActiveSecondaryColor());
         uiModule.addEvent(EventName.CHOOSE_SHADING_TYPE, () -> applicationState.setActiveShadingType());
         uiModule.addEvent(EventName.CHOOSE_START_POINT_ENDPOINT_MODE, () -> applicationState.setActiveStartAndEndPointMode());
+        uiModule.addEvent(EventName.COPY, () -> applicationState.copy());
+        uiModule.addEvent(EventName.PASTE, () -> applicationState.paste());
+        uiModule.addEvent(EventName.DELETE, () -> applicationState.delete());
+        uiModule.addEvent(EventName.UNDO, () -> applicationState.undo());
+        uiModule.addEvent(EventName.REDO, () -> applicationState.redo());
     }
 }
