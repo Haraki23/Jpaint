@@ -7,7 +7,7 @@ import view.DrawShapeHandler;
 public class ShapeFactory {
     ApplicationState AS;
     private DrawShapeHandler draw;
-    public ShapeFactory(ApplicationState AS, DrawShapeHandler draw) { // Also take in the ShapeList Class here
+    public ShapeFactory(ApplicationState AS, DrawShapeHandler draw) {
         this.AS = AS;
         this.draw = draw;
     }
@@ -18,6 +18,10 @@ public class ShapeFactory {
         switch(shapeType){
             case RECTANGLE:
                 shape = new Rectangle(AS);
+                JList.registerObserver(shape);
+                break;
+            case ELLIPSE:
+                shape = new Ellipse(AS);
                 JList.registerObserver(shape);
                 break;
         }

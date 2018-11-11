@@ -9,7 +9,7 @@ import view.gui.PaintCanvas;
 import java.awt.*;
 import java.util.UUID;
 
-public class Rectangle implements IShape, MouseObserver {
+public class Ellipse implements IShape, MouseObserver {
     private JPoint point;
     private ShapeType shapetype;
     private ShapeColor primary;
@@ -26,7 +26,7 @@ public class Rectangle implements IShape, MouseObserver {
     private int eY;
     private ApplicationState AS;
 
-    public Rectangle(ApplicationState AS) {
+    public Ellipse(ApplicationState AS) {
         this.AS=AS;
         this.primary = AS.getActivePrimaryColor();
         this.secondary = AS.getActiveSecondaryColor();
@@ -40,7 +40,7 @@ public class Rectangle implements IShape, MouseObserver {
         this.point = new JPoint();
     }
 
-    public Rectangle(int x, int y, int ex, int ey, BoundingBox Bound_Box, ShapeColor activePrimaryColor, ShapeColor activeSecondaryColor, ShapeShadingType activeShapeShadingType, ShapeType ST) {
+    public Ellipse(int x, int y, int ex, int ey, BoundingBox Bound_Box, ShapeColor activePrimaryColor, ShapeColor activeSecondaryColor, ShapeShadingType activeShapeShadingType, ShapeType ST) {
         this.sX = x;
         this.sY = y;
         this.eX = ex;
@@ -72,7 +72,7 @@ public class Rectangle implements IShape, MouseObserver {
         if (pointmover > 400) {
             pointmover = 200;
         }
-        return new Rectangle(sX + pointmover, sY + pointmover, eX+pointmover, eY+pointmover, BB, primary, secondary, shadingtype, shapetype);
+        return new Ellipse(sX + pointmover, sY + pointmover, eX+pointmover, eY+pointmover, BB, primary, secondary, shadingtype, shapetype);
     }
 
     public UUID getShape_ID() {
@@ -158,49 +158,49 @@ public class Rectangle implements IShape, MouseObserver {
         //Case 1
         if ((iy < fy) && (ix < fx)) {
             if (shadingtype.equals(ShapeShadingType.OUTLINE)) {
-                g2d.drawRect(ix, iy, w, h);
+                g2d.drawOval(ix, iy, w, h);
             } else if (shadingtype.equals(ShapeShadingType.FILLED_IN)) {
-                g2d.fillRect(ix, iy, w, h);
+                g2d.fillOval(ix, iy, w, h);
             } else if (shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)) {
-                g2d.fillRect(ix, iy, w, h);
+                g2d.fillOval(ix, iy, w, h);
                 g2d.setColor(ColorLegend.getColor(secondary.toString()));
-                g2d.drawRect(ix, iy, w, h);
+                g2d.drawOval(ix, iy, w, h);
             }
         }
         //Case 2
         else if ((ix > fx) && (iy > fy)) {
             if (shadingtype.equals(ShapeShadingType.OUTLINE)) {
-                g2d.drawRect(fx, fy, w, h);
+                g2d.drawOval(fx, fy, w, h);
             } else if (shadingtype.equals(ShapeShadingType.FILLED_IN)) {
-                g2d.fillRect(fx, fy, w, h);
+                g2d.fillOval(fx, fy, w, h);
             } else if (shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)) {
-                g2d.fillRect(fx, fy, w, h);
+                g2d.fillOval(fx, fy, w, h);
                 g2d.setColor(ColorLegend.getColor(secondary.toString()));
-                g2d.drawRect(fx, fy, w, h);
+                g2d.drawOval(fx, fy, w, h);
             }
         }
         //Case 3
         else if ((ix < fx) && (iy > fy)) {
             if (shadingtype.equals(ShapeShadingType.OUTLINE)) {
-                g2d.drawRect(fx - w, fy, w, h);
+                g2d.drawOval(fx - w, fy, w, h);
             } else if (shadingtype.equals(ShapeShadingType.FILLED_IN)) {
-                g2d.fillRect(fx - w, fy, w, h);
+                g2d.fillOval(fx - w, fy, w, h);
             } else if (shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)) {
-                g2d.fillRect(fx - w, fy, w, h);
+                g2d.fillOval(fx - w, fy, w, h);
                 g2d.setColor(ColorLegend.getColor(secondary.toString()));
-                g2d.drawRect(fx - w, fy, w, h);
+                g2d.drawOval(fx - w, fy, w, h);
             }
         }
         //Case 4
         else if ((ix > fx) && (iy < fy)) {
             if (shadingtype.equals(ShapeShadingType.OUTLINE)) {
-                g2d.drawRect(ix - w, iy, w, h);
+                g2d.drawOval(ix - w, iy, w, h);
             } else if (shadingtype.equals(ShapeShadingType.FILLED_IN)) {
-                g2d.fillRect(ix - w, iy, w, h);
+                g2d.fillOval(ix - w, iy, w, h);
             } else if (shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)) {
-                g2d.fillRect(ix - w, iy, w, h);
+                g2d.fillOval(ix - w, iy, w, h);
                 g2d.setColor(ColorLegend.getColor(secondary.toString()));
-                g2d.drawRect(ix - w, iy, w, h);
+                g2d.drawOval(ix - w, iy, w, h);
             }
         }
 

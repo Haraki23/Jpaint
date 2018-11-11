@@ -21,7 +21,8 @@ public class DrawShapeHandler implements IDraw {
     @Override
     public void DrawShapes(DrawShapeHandler draw, ArrayList<IShape> Jshapes) {
         clearcanvas();
-            for (IShape shape : Jshapes) {
+        System.out.println("<<<<<<<Current Shape List>>>>>>>>>>");
+        for (IShape shape : Jshapes) {
                 shape.printall();
                 shape.draw(PC);
             }
@@ -29,6 +30,6 @@ public class DrawShapeHandler implements IDraw {
 
     public void clearcanvas(){
         G2D.setColor(Color.WHITE);
-        G2D.fillRect(0,0, 50000, 50000);
+        G2D.fillRect(0,0, 5000, 5000);
     }
 }
