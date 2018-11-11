@@ -18,7 +18,7 @@ public class Rectangle implements IShape, MouseObserver {
     private ShapeShadingType shadingtype;
     private UUID Shape_ID = UUID.randomUUID();
     private BoundingBox BB;
-    private int pointmover;
+    private int pointmover = 20;
     int w;
     int h;
     private int sX;
@@ -26,7 +26,7 @@ public class Rectangle implements IShape, MouseObserver {
     private int eX;
     private int eY;
 
-    public Rectangle(ApplicationState AS){
+    public Rectangle(ApplicationState AS) {
         this.primary = AS.getActivePrimaryColor();
         this.secondary = AS.getActiveSecondaryColor();
         this.shadingtype = AS.getActiveShapeShadingType();
@@ -34,17 +34,19 @@ public class Rectangle implements IShape, MouseObserver {
         this.sY = AS.getstarty();
         this.eX = AS.getendx();
         this.eY = AS.getendy();
-        this.BB = new BoundingBox(sX,sY,eX,eY);
+        this.BB = new BoundingBox(sX, sY, eX, eY);
         this.point = new JPoint();
+        //Calculate our width
+        this.w = Math.abs(eX - sX);
+        //Calculate our height
+        this.h = Math.abs(eY - sY);
     }
 
-    public Rectangle(int x, int y, BoundingBox Bound_Box, ShapeColor activePrimaryColor, ShapeColor activeSecondaryColor, ShapeShadingType activeShapeShadingType){
+    public Rectangle(int x, int y, int width, int height, BoundingBox Bound_Box, ShapeColor activePrimaryColor, ShapeColor activeSecondaryColor, ShapeShadingType activeShapeShadingType) {
         this.sX = x;
         this.sY = y;
-        this.point.setstartx(sX);
-        this.point.setstarty(sX);
-        this.point.setendx(sX);
-        this.point.setendy(sX);
+        this.w = width;
+        this.h = height;
         this.BB = Bound_Box;
         this.primary = activePrimaryColor;
         this.secondary = activeSecondaryColor;
@@ -57,64 +59,84 @@ public class Rectangle implements IShape, MouseObserver {
         return point;
     }
 
-    public int getsx(){return sX;}
+    public int getsx() {
+        return sX;
+    }
 
-    public String getShapeType(){return shapetype.toString();}
+    @Override
+    public IShape copyShape() {
+        //We want to set an offset here for pasting our points
+        //Set the offset to the shape
+        pointmover += 20;
+        //Reset our pointmover
+        if (pointmover > 400) {
+            pointmover = 200;
+        }
+        return new Rectangle(sX + 200, sY + 200, Math.abs(pointmover + eX - sX), Math.abs(pointmover + eY - sY), BB, primary, secondary, shadingtype);
+    }
 
-    public UUID getShape_ID(){return Shape_ID;}
+    public UUID getShape_ID() {
+        return Shape_ID;
+    }
 
-    public BoundingBox getBB(){return BB;}
+    public BoundingBox getBB() {
+        return BB;
+    }
 
     @Override
     public void set_new_pts(JPoint set) {
-        //Original Shape Points
-        int Sx = point.getstartx();
-        int Sy = point.getstarty();
-        int Fx = point.getendx();
-        int Fy = point.getendy();
         int ex = set.getstartx();
         int ey = set.getstarty();
         int fex = set.getendx();
         int fey = set.getendy();
-        int deltax = fex-ex;
-        int deltay = fey-ey;
+        int deltax = fex - ex;
+        int deltay = fey - ey;
         //Initialize out final points
-        int nSx = deltax+Sx;
-        int nSy = deltay+Sy;
-        int nFx = deltax+Fx;
-        int nFy = deltay+Fy;
+        int nSx = deltax + sX;
+        int nSy = deltay + sY;
+        int nFx = deltax + eX;
+        int nFy = deltay + eY;
         //System.out.println("Our Sx " + Sx + " Our Sy " + Sy + " Our Fx " + Fx +" Our Fy "+ Fy);
-        point.setstartx(nSx);
-        point.setendx(nFx);
-        point.setstarty(nSy);
-        point.setendy(nFy);
+        sX = nSx;
+        sY = nSy;
+        eX = nFx;
+        eY = nFy;
         //System.out.println("Our Sx " + nSx + " Our Sy " + nSy + " Our Fx " + nFx +" Our Fy "+ nFy);
-        this.BB = new BoundingBox(nSx,nSy,nFx,nFy);
+        this.BB = new BoundingBox(nSx, nSy, nFx, nFy);
     }
-    public JPoint return_new_pts(){
-        //Original Shape Points
-        JPoint return_pt = new JPoint();
-        //int Sx = point.getstartx();
-        //int Sy = point.getstarty();
-        //int Fx = point.getendx();
-        //int Fy = point.getendy();
+
+    public void movepos(int deltax, int deltay) {
+
         //Initialize out final points
-        int nSx = pointmover+sX;
-        int nSy = pointmover+sY;
-        int nFx = pointmover+eX;
-        int nFy = pointmover+eY;
-        pointmover+=20;
-        //Reset our pointmover
-        if(pointmover > 400){
-            pointmover = 200;
-        }
+        int nSx = sX - deltax;
+        int nSy = sY - deltay;
+        int nFx = eX - deltax;
+        int nFy = eY - deltay;
         //System.out.println("Our Sx " + Sx + " Our Sy " + Sy + " Our Fx " + Fx +" Our Fy "+ Fy);
-        return_pt.setstartx(nSx);
-        return_pt.setendx(nFx);
-        return_pt.setstarty(nSy);
-        return_pt.setendy(nFy);
+        sX = nSx;
+        sY = nSy;
+        eX = nFx;
+        eY = nFy;
         //System.out.println("Our Sx " + nSx + " Our Sy " + nSy + " Our Fx " + nFx +" Our Fy "+ nFy);
-        return return_pt;
+        this.BB = new BoundingBox(nSx, nSy, nFx, nFy);
+
+    }
+
+    public void moveneg(int deltax, int deltay) {
+
+        //Initialize out final points
+        int nSx = sX + deltax;
+        int nSy = sY + deltay;
+        int nFx = eX + deltax;
+        int nFy = eY + deltay;
+        //System.out.println("Our Sx " + Sx + " Our Sy " + Sy + " Our Fx " + Fx +" Our Fy "+ Fy);
+        sX = nSx;
+        sY = nSy;
+        eX = nFx;
+        eY = nFy;
+        //System.out.println("Our Sx " + nSx + " Our Sy " + nSy + " Our Fx " + nFx +" Our Fy "+ nFy);
+        this.BB = new BoundingBox(nSx, nSy, nFx, nFy);
+
     }
 
     @Override
@@ -123,10 +145,6 @@ public class Rectangle implements IShape, MouseObserver {
         int iy = sY;
         int fx = eX;
         int fy = eY;
-        //Calculate our width
-        w = Math.abs(fx-ix);
-        //Calculate our height
-        h = Math.abs(fy-iy);
         //We set our graphics 2d object
         Graphics2D g2d = PC.getGraphics2D();
         //We obtain our color from the color legend
@@ -134,59 +152,51 @@ public class Rectangle implements IShape, MouseObserver {
         //We will set our stroke size here
         g2d.setStroke(new BasicStroke(2));
         //Case 1
-        if ((iy < fy) && (ix < fx)){
-            if(shadingtype.equals(ShapeShadingType.OUTLINE)){
+        if ((iy < fy) && (ix < fx)) {
+            if (shadingtype.equals(ShapeShadingType.OUTLINE)) {
                 g2d.drawRect(ix, iy, w, h);
-            }
-            else if(shadingtype.equals(ShapeShadingType.FILLED_IN)) {
+            } else if (shadingtype.equals(ShapeShadingType.FILLED_IN)) {
                 g2d.fillRect(ix, iy, w, h);
-            }
-            else if(shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)){
+            } else if (shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)) {
                 g2d.fillRect(ix, iy, w, h);
                 g2d.setColor(ColorLegend.getColor(secondary.toString()));
                 g2d.drawRect(ix, iy, w, h);
             }
         }
         //Case 2
-        else if ((ix>fx) && (iy>fy)){
-            if(shadingtype.equals(ShapeShadingType.OUTLINE)){
+        else if ((ix > fx) && (iy > fy)) {
+            if (shadingtype.equals(ShapeShadingType.OUTLINE)) {
                 g2d.drawRect(fx, fy, w, h);
-            }
-            else if(shadingtype.equals(ShapeShadingType.FILLED_IN)) {
+            } else if (shadingtype.equals(ShapeShadingType.FILLED_IN)) {
                 g2d.fillRect(fx, fy, w, h);
-            }
-            else if(shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)){
+            } else if (shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)) {
                 g2d.fillRect(fx, fy, w, h);
                 g2d.setColor(ColorLegend.getColor(secondary.toString()));
                 g2d.drawRect(fx, fy, w, h);
             }
         }
         //Case 3
-        else if ((ix<fx) && (iy > fy)){
-            if(shadingtype.equals(ShapeShadingType.OUTLINE)){
-                g2d.drawRect(fx-w, fy, w, h);
-            }
-            else if(shadingtype.equals(ShapeShadingType.FILLED_IN)) {
-                g2d.fillRect(fx-w, fy, w, h);
-            }
-            else if(shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)){
-                g2d.fillRect(fx-w, fy, w, h);
+        else if ((ix < fx) && (iy > fy)) {
+            if (shadingtype.equals(ShapeShadingType.OUTLINE)) {
+                g2d.drawRect(fx - w, fy, w, h);
+            } else if (shadingtype.equals(ShapeShadingType.FILLED_IN)) {
+                g2d.fillRect(fx - w, fy, w, h);
+            } else if (shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)) {
+                g2d.fillRect(fx - w, fy, w, h);
                 g2d.setColor(ColorLegend.getColor(secondary.toString()));
-                g2d.drawRect(fx-w, fy, w, h);
+                g2d.drawRect(fx - w, fy, w, h);
             }
         }
         //Case 4
-        else if ((ix>fx) && (iy < fy)){
-            if(shadingtype.equals(ShapeShadingType.OUTLINE)){
-                g2d.drawRect(ix-w, iy, w, h);
-            }
-            else if(shadingtype.equals(ShapeShadingType.FILLED_IN)) {
-                g2d.fillRect(ix-w, iy, w, h);
-            }
-            else if(shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)){
-                g2d.fillRect(ix-w, iy, w, h);
+        else if ((ix > fx) && (iy < fy)) {
+            if (shadingtype.equals(ShapeShadingType.OUTLINE)) {
+                g2d.drawRect(ix - w, iy, w, h);
+            } else if (shadingtype.equals(ShapeShadingType.FILLED_IN)) {
+                g2d.fillRect(ix - w, iy, w, h);
+            } else if (shadingtype.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)) {
+                g2d.fillRect(ix - w, iy, w, h);
                 g2d.setColor(ColorLegend.getColor(secondary.toString()));
-                g2d.drawRect(ix-w, iy, w, h);
+                g2d.drawRect(ix - w, iy, w, h);
             }
         }
 

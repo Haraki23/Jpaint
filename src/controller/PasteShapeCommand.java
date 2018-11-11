@@ -20,21 +20,10 @@ public class PasteShapeCommand implements ICommand, IUndoable {
 
     @Override
     public void run() {
-        JPoint Pt_Offset;
-        int width;
-        int height;
-        int area;
         //First I will iterate through my list of copied items
         for (IShape shape : AS.getCPJList().getShapeList()) {
-            //We want to set an offset here for pasting our points
-            Pt_Offset = shape.return_new_pts();
-            width = Math.abs(Pt_Offset.getendx() - Pt_Offset.getstartx());
-            height = Math.abs(Pt_Offset.getendy() - Pt_Offset.getstarty());
-            //Recalculate the area
-            area = width * height;
-            //Set the offset to the shape
             //Register in our new shape location to our CPJList
-            PastedList.add(shape);
+            PastedList.add(shape.copyShape());
         }
         //I also want to add them to my Main List
         for (IShape pshapes : PastedList) {

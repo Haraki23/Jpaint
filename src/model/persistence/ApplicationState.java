@@ -216,6 +216,14 @@ public class ApplicationState implements IApplicationState, Serializable {
 
     }
 
+    public void addUndo(IUndoable command){
+        undo_stack.add(command);
+    }
+
+    public void addRedo(IUndoable command){
+        redo_stack.add(command);
+    }
+
     public JPoint getASPoint(){
         return ASPoint;
     }
@@ -225,10 +233,10 @@ public class ApplicationState implements IApplicationState, Serializable {
     }
 
     private void setDefaults() {
-        activeShapeType = ShapeType.ELLIPSE;
-        activePrimaryColor = ShapeColor.BLUE;
-        activeSecondaryColor = ShapeColor.GREEN;
-        activeShapeShadingType = ShapeShadingType.FILLED_IN;
+        activeShapeType = ShapeType.RECTANGLE;
+        activePrimaryColor = ShapeColor.GRAY;
+        activeSecondaryColor = ShapeColor.ORANGE;
+        activeShapeShadingType = ShapeShadingType.OUTLINE_AND_FILLED_IN;
         activeStartAndEndPointMode = StartAndEndPointMode.DRAW;
     }
 }

@@ -3,7 +3,7 @@ package controller;
 import model.ShapeFactory;
 
 
-public class CreateShapeCommand implements ICommand {
+public class CreateShapeCommand implements ICommand, IUndoable {
     private ShapeFactory shape;
     private JPoint Pt;
     private JShapeList Jshape;
@@ -16,4 +16,15 @@ public class CreateShapeCommand implements ICommand {
     @Override
     public void run(){shape.createObject(Jshape);}
 
+    @Override
+    public void undo() {
+        Jshape.removeLast();
+    }
+
+    @Override
+    public void redo() {
+
+        Jshape.addLast();
+
+    }
 }

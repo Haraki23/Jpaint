@@ -36,6 +36,10 @@ public class User_Mouse_Handler extends MouseAdapter {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                //Well cast it to IUndoable
+                IUndoable undoable1 = (IUndoable)command;
+                //Well add it to the stack
+                AS.addUndo(undoable1);
                 break;
             case MOVE:
                 command = new MoveShapeCommand(AS.getASPoint(), AS.getJList(), AS.getSJList());
@@ -44,6 +48,10 @@ public class User_Mouse_Handler extends MouseAdapter {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                //Well cast it to IUndoable
+                IUndoable undoable = (IUndoable)command;
+                //Well add it to the stack
+                AS.addUndo(undoable);
                 command = new UpdateShapeCommand(shape,AS.getJList());
                 try {
                     command.run();

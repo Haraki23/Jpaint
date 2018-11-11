@@ -13,16 +13,14 @@ public class ShapeFactory {
     }
 
     public void createObject(JShapeList JList) {
-        ShapeType shapeName = AS.getActiveShapeType();
+        ShapeType shapeType = AS.getActiveShapeType();
         IShape shape;
-        switch(shapeName){
+        switch(shapeType){
             case RECTANGLE:
-                System.out.println("Were creating a new rectangle here");
                 shape = new Rectangle(AS);
                 JList.registerObserver(shape);
                 break;
         }
-        //draw.clearcanvas();
         draw.DrawShapes(draw, JList.getShapeList());
     }
 
