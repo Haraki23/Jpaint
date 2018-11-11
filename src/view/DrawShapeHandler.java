@@ -30,6 +30,6 @@ public class DrawShapeHandler implements IDraw {
 
     public void clearcanvas(){
         G2D.setColor(Color.WHITE);
-        G2D.fillRect(0,0, 5000, 5000);
+        G2D.fillRect(0,0, 200000, 200000);
     }
 }

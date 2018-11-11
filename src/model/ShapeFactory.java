@@ -24,6 +24,10 @@ public class ShapeFactory {
                 shape = new Ellipse(AS);
                 JList.registerObserver(shape);
                 break;
+            case TRIANGLE:
+                shape = new Triangle(AS);
+                JList.registerObserver(shape);
+                break;
         }
         draw.DrawShapes(draw, JList.getShapeList());
     }

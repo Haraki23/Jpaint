@@ -10,13 +10,13 @@ public enum EventName {
 	CHOOSE_PRIMARY_COLOR {
 		@Override
 		public String toString() {
-			return "CHOOSE PRIMARY COLOR";
+			return "PRIMARY COLOR";
 		}
 	},
 	CHOOSE_SECONDARY_COLOR {
 		@Override
 		public String toString() {
-			return "CHOOSE SECONDARY COLOR";
+			return "SECONDARY COLOR";
 		}
 	},
 	CHOOSE_SHADING_TYPE {
