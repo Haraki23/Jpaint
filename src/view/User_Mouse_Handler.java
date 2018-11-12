@@ -31,11 +31,7 @@ public class User_Mouse_Handler extends MouseAdapter {
         switch(AS.getActiveStartAndEndPointMode()) {
             case DRAW:
                 command = new CreateShapeCommand(shape, AS.getASPoint(), AS.getJList());
-                try {
-                    command.run();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                command.run();
                 //Well cast it to IUndoable
                 IUndoable undoable1 = (IUndoable)command;
                 //Well add it to the stack
@@ -43,29 +39,18 @@ public class User_Mouse_Handler extends MouseAdapter {
                 break;
             case MOVE:
                 command = new MoveShapeCommand(AS.getASPoint(), AS.getJList(), AS.getSJList());
-                try {
-                    command.run();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                command.run();
                 //Well cast it to IUndoable
                 IUndoable undoable = (IUndoable)command;
                 //Well add it to the stack
                 AS.addUndo(undoable);
                 command = new UpdateShapeCommand(shape,AS.getJList());
-                try {
-                    command.run();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                command.run();
                 break;
             case SELECT:
                 command = new SelectShapeCommand(AS.getASPoint(), AS.getJList(), AS.getSJList());
-                try {
-                    command.run();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                AS.getSJList().clear_list();
+                command.run();
                 break;
         }
             //System.out.println("Released from: " + AS.getendx() + "     " + AS.getendy());

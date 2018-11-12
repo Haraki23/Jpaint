@@ -16,12 +16,13 @@ public class CopyShapeCommand implements ICommand {
 
     @Override
     public void run() {
+        CPJList.clear_list();
         for (IShape shape2 : SJList.getShapeList()) {
             if (CPJList.getShapeList().contains(shape2) == false) {
                 CPJList.registerObserver(shape2);
             }
         }
-        System.out.println("Current Copylist size " + CPJList.getShapeList().size());
+        System.out.println("<<<Copy List Size>>> " + SJList.getShapeList().size());
         SJList.clear_list();
     }
 }

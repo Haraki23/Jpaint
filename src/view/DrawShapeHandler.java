@@ -21,7 +21,7 @@ public class DrawShapeHandler implements IDraw {
     @Override
     public void DrawShapes(DrawShapeHandler draw, ArrayList<IShape> Jshapes) {
         clearcanvas();
-        System.out.println("<<<<<<<Current Shape List>>>>>>>>>>");
+        System.out.println("\n<<<<<<<Current Shape List>>>>>>>>>>\n");
         for (IShape shape : Jshapes) {
                 shape.printall();
                 shape.draw(PC);

@@ -21,7 +21,6 @@ public class SelectedJShapeList implements IJShape {
     public ArrayList <IShape> getShapeList() {
         ArrayList<IShape> temp = new ArrayList<IShape>(JshapesMap.values());
         Jshapes = temp;
-        System.out.println("This is our current selected shapes list size: " + Jshapes.size());
         return Jshapes;
     }
 

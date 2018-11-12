@@ -108,11 +108,7 @@ public class ApplicationState implements IApplicationState, Serializable {
     @Override
     public void copy(){
         command = new CopyShapeCommand(this, SJList, CPJList);
-        try {
-            command.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        command.run();
 
     }
     @Override
@@ -122,7 +118,7 @@ public class ApplicationState implements IApplicationState, Serializable {
         redo_stack.add(command);
         command.undo();
         draw.DrawShapes(draw, JList.getShapeList());
-        System.out.println("This is the current size of our undo stack " + undo_stack.size());
+        System.out.println("<<<Undo Stack Size>>> " + undo_stack.size());
     }
 
     @Override
@@ -132,33 +128,25 @@ public class ApplicationState implements IApplicationState, Serializable {
         undo_stack.add(command);
         command.redo();
         draw.DrawShapes(draw, JList.getShapeList());
-        System.out.println("This is the current size of our redo stack " + undo_stack.size());
+        System.out.println("<<<Redo Stack Size>>> " + redo_stack.size());
     }
 
     @Override
     public void paste() {
         command = new PasteShapeCommand(this, draw);
-        try {
-            command.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        command.run();
         //Well cast it to IUndoable
         IUndoable undoable = (IUndoable)command;
         //Well add it to the stack
         undo_stack.add(undoable);
-        System.out.println("This is the current size of our undo stack " + undo_stack.size());
+        System.out.println("<<<Undo Stack Size>>> " + undo_stack.size());
     }
 
     @Override
 
     public void delete(){
         command = new DeleteShapeCommand(this, draw);
-        try {
-            command.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        command.run();
         //Well cast it to IUndoable
         IUndoable undoable = (IUndoable)command;
         //Well add it to the stack

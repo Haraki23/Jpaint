@@ -19,6 +19,7 @@ public class SelectShapeCommand implements ICommand {
             if(shape.getBB().point_intersect(test)){SJList.registerObserver(shape);}
             SJList.getShapeList();
         }
+        System.out.println("<<<Selected List Size>>> " + SJList.getShapeList().size());
     }
 
 }
