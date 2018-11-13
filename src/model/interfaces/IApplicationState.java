@@ -14,8 +14,6 @@ import java.awt.*;
 public interface IApplicationState {
     void setActiveShape();
 
-    void setActiveShapeTester(ShapeType test);
-
     void setActivePrimaryColor();
 
     void setActiveSecondaryColor();

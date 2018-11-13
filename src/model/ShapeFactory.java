@@ -3,12 +3,16 @@ package model;
 import controller.*;
 import model.persistence.ApplicationState;
 import view.DrawShapeHandler;
+import view.NullDrawShapeHandler;
 
 public class ShapeFactory {
     private ApplicationState AS;
-    private DrawShapeHandler draw;
+    private IDraw draw;
     private IShapeAdder shapeAdd = null;
-    public ShapeFactory(ApplicationState AS, DrawShapeHandler draw) {
+    public ShapeFactory(ApplicationState AS, IDraw draw) {
+        if (draw == null){
+            draw = new NullDrawShapeHandler();
+        }
         this.AS = AS;
         this.draw = draw;
     }

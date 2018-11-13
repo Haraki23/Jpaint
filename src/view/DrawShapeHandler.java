@@ -19,7 +19,7 @@ public class DrawShapeHandler implements IDraw {
 
 
     @Override
-    public void DrawShapes(DrawShapeHandler draw, ArrayList<IShape> Jshapes) {
+    public void DrawShapes(IDraw draw, ArrayList<IShape> Jshapes) {
         clearcanvas();
         System.out.println("\n<<<<<<<Current Shape List>>>>>>>>>>\n");
         for (IShape shape : Jshapes) {
