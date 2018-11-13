@@ -54,6 +54,10 @@ public class ApplicationState implements IApplicationState, Serializable {
         this.ASPoint = new JPoint();
         setDefaults();
     }
+    @Override
+    public void setActiveShapeTester(ShapeType test) {
+        activeShapeType = test;
+    }
 
     @Override
     public void setActiveShape() {

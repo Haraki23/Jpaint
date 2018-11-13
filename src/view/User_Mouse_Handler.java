@@ -5,7 +5,6 @@ import model.ShapeFactory;
 import model.persistence.ApplicationState;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 public class User_Mouse_Handler extends MouseAdapter {
     private ICommand command = null;
@@ -49,10 +48,17 @@ public class User_Mouse_Handler extends MouseAdapter {
                 break;
             case SELECT:
                 command = new SelectShapeCommand(AS.getASPoint(), AS.getJList(), AS.getSJList());
-                AS.getSJList().clear_list();
+                //AS.getSJList().clear_list();
                 command.run();
                 break;
         }
-            //System.out.println("Released from: " + AS.getendx() + "     " + AS.getendy());
+
+        //Check if we need to change colors
+        command = new ChangeColorCommand(AS,AS.getSJList(),AS.getJList());
+        command.run();
+        command = new UpdateShapeCommand(shape,AS.getJList());
+        command.run();
+        return;
+        //System.out.println("Released from: " + AS.getendx() + "     " + AS.getendy());
     }
 }

@@ -29,11 +29,15 @@ public class User_Keyboard_Handler extends KeyAdapter {
                 break;
             case 'v':
                 AS.paste();
+                break;
             case 'z':
                 AS.undo();
                 break;
             case 'd':
                 AS.delete();
+                break;
+            case 'y':
+                AS.redo();
                 break;
         }
     }

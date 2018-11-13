@@ -28,7 +28,7 @@ public class MoveShapeCommand implements ICommand, IUndoable {
                 }
             }
         }
-        SJList.clear_list();
+        //SJList.clear_list();
     }
 
     @Override

@@ -19,7 +19,7 @@ public class JUnitTests {
     //Draw and MouseHandler
     DrawShapeHandler draw = new DrawShapeHandler(paintCanvas);
     ApplicationState appState = new ApplicationState(uiModule, draw);
-    IJPaintController controller = new JPaintController(uiModule, appState);
+    IJPaintController controller = new JPaintController(uiModule, appState, paintCanvas);
     ShapeFactory shape = new ShapeFactory(appState, draw);
     IShape shape_rect = new Rectangle(appState);
     IShape genshape = new Rectangle(appState);
@@ -52,7 +52,7 @@ public class JUnitTests {
         genshape = new Ellipse(appState);
         assertEquals("ELLIPSE", genshape.getShapeType());
         appState.setActiveShapeTester(ShapeType.TRIANGLE);
-        genshape = new Rectangle(appState);
+        genshape = new Triangle(appState);
         assertEquals("TRIANGLE", genshape.getShapeType());
         }
 

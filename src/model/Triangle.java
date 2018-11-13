@@ -18,8 +18,6 @@ import java.util.UUID;
         private UUID Shape_ID = UUID.randomUUID();
         private BoundingBox BB;
         private int pointmover = 20;
-        int w;
-        int h;
         private int sX;
         private int sY;
         private int eX;
@@ -59,8 +57,8 @@ import java.util.UUID;
         }
 
         public void printall() {
-            System.out.println(getShape_ID().toString().substring(0, 4) + " " + shapetype.toString() + " ShapeID has (sX,Sy,eX,eY): " + sX + "," + sY + "," + eX + "," + eY);
-            System.out.println("--------------------------------------------------------");
+            System.out.println(shapetype.toString()+" ShapeID [" + getShape_ID().toString()+ "] | (sX,Sy,eX,eY): " + sX +","+ sY + "," + eX + "," + eY +" | Primary [" + this.primary.toString()+"] | Secondary [" + this.secondary.toString()+"]" );
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------");
         }
 
         @Override
@@ -73,6 +71,29 @@ import java.util.UUID;
                 pointmover = 200;
             }
             return new Triangle(sX + pointmover, sY + pointmover, eX + pointmover, eY + pointmover, BB, primary, secondary, shadingtype, shapetype);
+        }
+
+        @Override
+        public String getShapeType() {
+            return shapetype.toString();
+        }
+
+        public void setPrimary(){
+            primary = AS.getActivePrimaryColor();
+        }
+
+        public void setSecondary(){
+            secondary = AS.getActiveSecondaryColor();
+        }
+
+        @Override
+        public ShapeColor getPrimary() {
+            return primary;
+        }
+
+        @Override
+        public ShapeColor getSecondary() {
+            return secondary;
         }
 
         public UUID getShape_ID() {
@@ -144,11 +165,8 @@ import java.util.UUID;
             int diffx = (eX - sX);
             int diffxh = diffx / 2;
             int diffy = (eY - sY);
-            int lX = Math.min((eX - sX) + sX, sX);
-            int lY = Math.min((eY - sY) + sY, sY);
-            //Point top = new Point(lX + diffxh, lY);
-            //Point bL = new Point(lX, lY + diffy);
-            //Point bR = new Point(lX + diffx, lY + diffy);
+            int lX = Math.min(eX, sX);
+            int lY = Math.min(eY, sY);
             int [] X = new int[]{lX + diffxh, lX, lX + diffx};
             int [] Y = new int[]{lY, lY + diffy, lY + diffy};
             Graphics2D g2d = PC.getGraphics2D();
@@ -157,6 +175,7 @@ import java.util.UUID;
             //We will set our stroke size here
             g2d.setStroke(new BasicStroke(2));
             //Case 1
+            if(sX < eX && sY < eY){
             if (this.shadingtype.equals(shadingtype.OUTLINE)) {
                 g2d.drawPolygon(X, Y, 3);
             } else if (this.shadingtype.equals(shadingtype.FILLED_IN)) {
@@ -165,6 +184,49 @@ import java.util.UUID;
                 g2d.fillPolygon(X, Y, 3);
                 g2d.setColor(ColorLegend.getColor(secondary.toString()));
                 g2d.drawPolygon(X, Y, 3);
+            }
+            }
+            //Case 2
+            else if (sX > eX && eY<sY ){
+                X = new int[]{lX - diffxh, lX, lX - diffx};
+                Y = new int[]{lY, lY - diffy, lY - diffy};
+                if (this.shadingtype.equals(shadingtype.OUTLINE)) {
+                    g2d.drawPolygon(X, Y, 3);
+                } else if (this.shadingtype.equals(shadingtype.FILLED_IN)) {
+                    g2d.fillPolygon(X, Y, 3);
+                } else if (this.shadingtype.equals(shadingtype.OUTLINE_AND_FILLED_IN)) {
+                    g2d.fillPolygon(X, Y, 3);
+                    g2d.setColor(ColorLegend.getColor(secondary.toString()));
+                    g2d.drawPolygon(X, Y, 3);
+                }
+            }
+            //Case 3
+            else if (sX > eX && sY<eY ){
+                X = new int[]{lX - diffxh, lX, lX - diffx};
+                Y = new int[]{lY, lY + diffy, lY + diffy};
+                if (this.shadingtype.equals(shadingtype.OUTLINE)) {
+                    g2d.drawPolygon(X, Y, 3);
+                } else if (this.shadingtype.equals(shadingtype.FILLED_IN)) {
+                    g2d.fillPolygon(X, Y, 3);
+                } else if (this.shadingtype.equals(shadingtype.OUTLINE_AND_FILLED_IN)) {
+                    g2d.fillPolygon(X, Y, 3);
+                    g2d.setColor(ColorLegend.getColor(secondary.toString()));
+                    g2d.drawPolygon(X, Y, 3);
+                }
+            }
+            //Case 4
+            else{
+                X = new int[]{lX + diffxh, lX, lX + diffx};
+                Y = new int[]{lY, lY - diffy, lY - diffy};
+                if (this.shadingtype.equals(shadingtype.OUTLINE)) {
+                    g2d.drawPolygon(X, Y, 3);
+                } else if (this.shadingtype.equals(shadingtype.FILLED_IN)) {
+                    g2d.fillPolygon(X, Y, 3);
+                } else if (this.shadingtype.equals(shadingtype.OUTLINE_AND_FILLED_IN)) {
+                    g2d.fillPolygon(X, Y, 3);
+                    g2d.setColor(ColorLegend.getColor(secondary.toString()));
+                    g2d.drawPolygon(X, Y, 3);
+                }
             }
         }
     }

@@ -14,11 +14,16 @@ public class SelectShapeCommand implements ICommand {
 
     @Override
     public void run(){
+        int counter = 0;
         BoundingBox test = new BoundingBox(Pt.getstartx(),Pt.getstarty(),Pt.getendx(),Pt.getendy());
         for(IShape shape: JList.getShapeList()){
-            if(shape.getBB().point_intersect(test)){SJList.registerObserver(shape);}
+            if(shape.getBB().point_intersect(test)){
+                SJList.registerObserver(shape);
+                counter++;
+            }
             SJList.getShapeList();
         }
+        if (counter == 0) SJList.clear_list();
         System.out.println("<<<Selected List Size>>> " + SJList.getShapeList().size());
     }
 

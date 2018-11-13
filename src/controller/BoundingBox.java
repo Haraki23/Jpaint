@@ -1,3 +1,5 @@
+/* Collision logic obtained from
+https://algs4.cs.princeton.edu/91primitives/BoundingBox.java.html*/
 package controller;
 
 public class BoundingBox {

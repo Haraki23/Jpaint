@@ -60,7 +60,11 @@ public class Ellipse implements IShape, MouseObserver {
 
     public void printall() {
         System.out.println(shapetype.toString()+" ShapeID [" + getShape_ID().toString()+ "] | (sX,Sy,eX,eY): " + sX +","+ sY + "," + eX + "," + eY +" | Primary [" + this.primary.toString()+"] | Secondary [" + this.secondary.toString()+"]" );
-        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------");
+    }
+    @Override
+    public String getShapeType() {
+        return shapetype.toString();
     }
 
     @Override
@@ -137,6 +141,23 @@ public class Ellipse implements IShape, MouseObserver {
         //System.out.println("Our Sx " + nSx + " Our Sy " + nSy + " Our Fx " + nFx +" Our Fy "+ nFy);
         this.BB = new BoundingBox(nSx, nSy, nFx, nFy);
 
+    }
+    public void setPrimary(){
+        primary = AS.getActivePrimaryColor();
+    }
+
+    public void setSecondary(){
+        secondary = AS.getActiveSecondaryColor();
+    }
+
+    @Override
+    public ShapeColor getPrimary() {
+        return primary;
+    }
+
+    @Override
+    public ShapeColor getSecondary() {
+        return secondary;
     }
 
     @Override
