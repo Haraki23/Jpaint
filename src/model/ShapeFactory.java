@@ -5,7 +5,7 @@ import model.persistence.ApplicationState;
 import view.DrawShapeHandler;
 
 public class ShapeFactory {
-    ApplicationState AS;
+    private ApplicationState AS;
     private DrawShapeHandler draw;
     private IShapeAdder shapeAdd = null;
     public ShapeFactory(ApplicationState AS, DrawShapeHandler draw) {
