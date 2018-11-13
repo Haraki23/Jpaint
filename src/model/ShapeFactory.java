@@ -1,12 +1,13 @@
 package model;
 
-import controller.JShapeList;
+import controller.*;
 import model.persistence.ApplicationState;
 import view.DrawShapeHandler;
 
 public class ShapeFactory {
     ApplicationState AS;
     private DrawShapeHandler draw;
+    private IShapeAdder shapeAdd = null;
     public ShapeFactory(ApplicationState AS, DrawShapeHandler draw) {
         this.AS = AS;
         this.draw = draw;
@@ -14,19 +15,18 @@ public class ShapeFactory {
 
     public void createObject(JShapeList JList) {
         ShapeType shapeType = AS.getActiveShapeType();
-        IShape shape;
         switch(shapeType){
             case RECTANGLE:
-                shape = new Rectangle(AS);
-                JList.registerObserver(shape);
+                shapeAdd = new AddRectangleStrategy(JList,AS);
+                shapeAdd.ShapeAdder(shapeType);
                 break;
             case ELLIPSE:
-                shape = new Ellipse(AS);
-                JList.registerObserver(shape);
+                shapeAdd = new AddEllipseStrategy(JList,AS);
+                shapeAdd.ShapeAdder(shapeType);
                 break;
             case TRIANGLE:
-                shape = new Triangle(AS);
-                JList.registerObserver(shape);
+                shapeAdd = new AddTriangleStrategy(JList,AS);
+                shapeAdd.ShapeAdder(shapeType);
                 break;
         }
         draw.DrawShapes(draw, JList.getShapeList());
