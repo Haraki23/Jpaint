@@ -1,11 +1,10 @@
 package controller;
 
-import model.interfaces.IApplicationState;
+import controller.Interfaces.IJPaintController;
+import model.Interfaces.IApplicationState;
 import view.EventName;
-import view.gui.PaintCanvas;
-import view.interfaces.IUiModule;
-
-import java.awt.*;
+import view.GUI.PaintCanvas;
+import view.Interfaces.IUiModule;
 
 public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;

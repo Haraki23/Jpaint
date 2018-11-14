@@ -1,16 +1,17 @@
 package main;
 
 import controller.*;
-import model.ShapeFactory;
-import view.DrawShapeHandler;
-import view.User_Keyboard_Handler;
-import view.User_Mouse_Handler;
-import model.persistence.ApplicationState;
-import view.gui.Gui;
-import view.gui.GuiWindow;
-import view.gui.PaintCanvas;
-import view.interfaces.IGuiWindow;
-import view.interfaces.IUiModule;
+import controller.Interfaces.IJPaintController;
+import model.Factories.ShapeFactory;
+import view.Handlers.DrawShapeHandler;
+import view.Handlers.User_Keyboard_Handler;
+import view.Handlers.User_Mouse_Handler;
+import model.Persistence.ApplicationState;
+import view.GUI.Gui;
+import view.GUI.GuiWindow;
+import view.GUI.PaintCanvas;
+import view.Interfaces.IGuiWindow;
+import view.Interfaces.IUiModule;
 
 public class Main {
     public static void main(String[] args){
